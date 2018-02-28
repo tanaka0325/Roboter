@@ -103,7 +103,7 @@ venv.bak/
 
 ### venv ###
 # Linux
-bin/ 
+bin/
 include/
 
 # Window
@@ -117,3 +117,4 @@ pyvenv.cfg
 
 
 # End of https://www.gitignore.io/api/venv,python
+data.csv
