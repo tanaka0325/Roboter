@@ -19,3 +19,12 @@ class RestaurantModel(object):
         with open(self.csv_file_name, 'w') as cf:
             writer = csv.DictWriter(cf, fieldnames=self.fieldnames)
             writer.writeheader()
+
+    def save_restaurant(self, restaurant_name):
+        # TODO 既に登録されているレストランだったらinsertではなくincrementする
+        with open(self.csv_file_name, 'a') as cf:
+            writer = csv.DictWriter(cf, fieldnames=self.fieldnames)
+            writer.writerow({
+                self.fieldnames[0]: restaurant_name.capitalize(),
+                self.fieldnames[1]: 1
+            })
