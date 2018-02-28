@@ -24,7 +24,7 @@ class Roboter(object):
         return input(self.user_name + "さん。どこのレストランが好きですか？\n")
 
     def save_favorite_restaurant(self, favorite_restaurant):
-        self.model.save_restaurant(favorite_restaurant)
+        self.model.save_restaurant(favorite_restaurant.capitalize())
 
     def say_good_bye(self):
         print(self.user_name + "さん。ありがとうございました。\n良い一日を！さようなら。")

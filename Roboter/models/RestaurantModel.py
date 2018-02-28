@@ -21,10 +21,38 @@ class RestaurantModel(object):
             writer.writeheader()
 
     def save_restaurant(self, restaurant_name):
-        # TODO 既に登録されているレストランだったらinsertではなくincrementする
-        with open(self.csv_file_name, 'a') as cf:
+        if self.is_exists_record(restaurant_name):
+            self.increment_count(restaurant_name)
+        else:
+            with open(self.csv_file_name, 'a') as cf:
+                writer = csv.DictWriter(cf, fieldnames=self.fieldnames)
+                writer.writerow({
+                    self.fieldnames[0]: restaurant_name,
+                    self.fieldnames[1]: 1
+                })
+
+    def is_exists_record(self, restaurant_name):
+        with open(self.csv_file_name, 'r') as cf:
+            reader = csv.DictReader(cf)
+            for row in reader:
+                if row[self.fieldnames[0]] == restaurant_name:
+                    return True
+                    break
+
+    def increment_count(self, restaurant_name):
+        update_list = []
+        with open(self.csv_file_name, 'r+') as cf:
+            reader = csv.DictReader(cf)
+            for row in reader:
+                if row[self.fieldnames[0]] == restaurant_name:
+                    d = {
+                        self.fieldnames[0]: row[self.fieldnames[0]],
+                        self.fieldnames[1]: int(row[self.fieldnames[1]]) + 1
+                    }
+                    update_list.append(d)
+                else:
+                    update_list.append(row)
+            cf.seek(0)
             writer = csv.DictWriter(cf, fieldnames=self.fieldnames)
-            writer.writerow({
-                self.fieldnames[0]: restaurant_name.capitalize(),
-                self.fieldnames[1]: 1
-            })
+            writer.writeheader()
+            writer.writerows(update_list)
