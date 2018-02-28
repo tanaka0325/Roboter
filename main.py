@@ -1,2 +1,4 @@
+from Roboter import roboter
+
 if __name__ == '__main__':
-    print('run roboter')
+    roboter.run()
