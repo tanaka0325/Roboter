@@ -21,7 +21,7 @@ class RestaurantModel(object):
             writer.writeheader()
 
     def save_restaurant(self, restaurant_name):
-        if self.is_exists_record(restaurant_name):
+        if self.find_by_restaurant_name(restaurant_name):
             self.increment_count(restaurant_name)
         else:
             with open(self.csv_file_name, 'a') as cf:
@@ -31,7 +31,7 @@ class RestaurantModel(object):
                     self.fieldnames[1]: 1
                 })
 
-    def is_exists_record(self, restaurant_name):
+    def find_by_restaurant_name(self, restaurant_name):
         with open(self.csv_file_name, 'r') as cf:
             reader = csv.DictReader(cf)
             for row in reader:
@@ -56,3 +56,20 @@ class RestaurantModel(object):
             writer = csv.DictWriter(cf, fieldnames=self.fieldnames)
             writer.writeheader()
             writer.writerows(update_list)
+
+    def get_top_restaurant_name(self):
+        top_restaurant = {}
+        with open(self.csv_file_name, 'r') as cf:
+            reader = csv.DictReader(cf)
+            for row in reader:
+                if top_restaurant:
+                    if top_restaurant[self.fieldnames[1]] < row[self.
+                                                                fieldnames[1]]:
+                        top_restaurant = dict(row)
+                else:
+                    top_restaurant = dict(row)
+
+        if top_restaurant:
+            return top_restaurant[self.fieldnames[0]]
+        else:
+            return None
