@@ -1,12 +1,14 @@
 import csv
 import os
 
+DEFAULT_CSV_FILE_PATH = 'data.csv'
+
 
 class Restaurant(object):
 
     fieldnames = ['NAME', 'COUNT']
 
-    def __init__(self, csv_file_name):
+    def __init__(self, csv_file_name=DEFAULT_CSV_FILE_PATH):
         self.csv_file_name = os.path.join(os.getcwd(), csv_file_name)
 
         if not self.is_exists_csv_file():
