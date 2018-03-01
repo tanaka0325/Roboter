@@ -1,4 +1,4 @@
-from .Restaurant import Restaurant
+from .restaurant import Restaurant
 
 DEFAULT_ROBOT_NAME = 'Roboko'
 

@@ -1,5 +1,5 @@
-from .models.Restaurant import Restaurant
-from .models.Robot import Robot
+from .models.restaurant import Restaurant
+from .models.robot import Robot
 
 
 def start_conversation():
