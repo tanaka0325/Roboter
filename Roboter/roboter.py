@@ -1,4 +1,4 @@
-from .models.RestaurantModel import RestaurantModel
+from .models.Restaurant import Restaurant
 
 
 class Roboter(object):
@@ -6,7 +6,7 @@ class Roboter(object):
     csv_file_name = 'data.csv'
 
     def __init__(self):
-        self.model = RestaurantModel(self.csv_file_name)
+        self.model = Restaurant(self.csv_file_name)
 
     def start_conversation(self):
         user_name = self.ask_user_name()

@@ -2,7 +2,7 @@ import csv
 import os
 
 
-class RestaurantModel(object):
+class Restaurant(object):
 
     fieldnames = ['NAME', 'COUNT']
 
