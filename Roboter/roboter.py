@@ -1,4 +1,3 @@
-from .models.restaurant import Restaurant
 from .models.robot import Robot
 
 
