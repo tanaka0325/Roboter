@@ -1,6 +1,7 @@
 from .restaurant import Restaurant
 
 DEFAULT_ROBOT_NAME = 'Roboko'
+DEFAULT_RECOMMEND_COUNT = 2
 
 
 class Robot(object):
@@ -16,14 +17,21 @@ class Robot(object):
     def recommend_restaurant(self):
         most_popluar_restaurant = self.restaurant_model.get_most_popular()
         if most_popluar_restaurant:
+            exclude_list = []
             while True:
+                if len(exclude_list) >= DEFAULT_RECOMMEND_COUNT:
+                    break
+
                 answer = input("私のオススメのレストランは、" + most_popluar_restaurant +
                                'です。\nこのレストランは好きですか？ [Yes/No]').lower()
                 if answer in ('yes', 'y'):
                     self.restaurant_model.increment(most_popluar_restaurant)
                     break
                 elif answer in ('no', 'n'):
-                    break
+                    exclude_list.append(most_popluar_restaurant)
+                    most_popluar_restaurant = self.restaurant_model.get_most_popular(
+                        exclude_list)
+                    continue
                 else:
                     print("YesかNoで答えてください\n")
 
